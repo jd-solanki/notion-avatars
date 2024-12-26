@@ -3,7 +3,7 @@
 import type { AvatarConfig } from '~~/shared/types'
 import { getRandomAvatarStyle } from '~~/shared/utils'
 
-const config = ref<AvatarConfig>(getRandomAvatarStyle())
+const config = useState<AvatarConfig>('avatar-config', () => getRandomAvatarStyle())
 </script>
 
 <template>
@@ -22,12 +22,13 @@ const config = ref<AvatarConfig>(getRandomAvatarStyle())
     </header>
     <!-- TODO: Remove this client only wrapper -->
     <div class="container my-auto">
-      <ClientOnly>
-        <div class="w-48 h-48 md:w-72 md:h-72 mx-auto">
+      <div class="w-48 h-48 md:w-72 md:h-72 mx-auto">
+        <!-- TODO: Remove this `ClientOnly` and properly import `rawContent` on server in `AvatarPreview` -->
+        <ClientOnly>
           <AvatarPreview :config="config" />
-        </div>
-        <AvatarEditor :config="config" />
-      </ClientOnly>
+        </ClientOnly>
+      </div>
+      <AvatarEditor :config="config" />
       <div class="my-8">
         <Button
           variant="outline"
