@@ -1,75 +1,11 @@
-# Nuxt Minimal Starter
+# Notion Avatars
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+> _This is nuxt version of existing **broken** [notion avatars](https://notion-avatar.vercel.app/)_.
 
-## Setup
+🚧 WIP
 
-Make sure to install dependencies:
+🚀 Going live in 2 days...
 
-```bash
-# npm
-npm install
+## Motivation
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+We wanted to use Notion Avatars but it's broken. So we decided to make our own version of it.
