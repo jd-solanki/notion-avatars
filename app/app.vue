@@ -1,9 +1,16 @@
 <script lang="ts" setup>
 // TODO: All `~~/shared` imports should be auto imported
 import type { AvatarConfig } from '~~/shared/types'
-import { getRandomAvatarStyle } from '~~/shared/utils'
+import { getAvatarStyleFromQueryParams, getRandomAvatarStyle } from '~~/shared/utils'
 
-const config = useState<AvatarConfig>('avatar-config', () => getRandomAvatarStyle())
+const route = useRoute()
+const router = useRouter()
+
+const appliedAvatarStyle = getAvatarStyleFromQueryParams(route.query)
+const config = useState<AvatarConfig>('avatar-config', () => getRandomAvatarStyle(appliedAvatarStyle))
+
+// Remove query params to avoid ugly URL
+router.replace({ query: {} })
 </script>
 
 <template>

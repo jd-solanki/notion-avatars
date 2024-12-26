@@ -1,4 +1,5 @@
-import type { AvatarConfig, AvatarPart } from './types'
+import type { LocationQuery } from 'vue-router'
+import type { AvatarConfig } from './types'
 
 // TODO: Extract this via some kind of automation from the assets
 export const AVATAR_STYLES: AvatarConfig = {
@@ -16,28 +17,47 @@ export const AVATAR_STYLES: AvatarConfig = {
   christmas: 0,
 }
 
-export const getRandomAvatarStyle = (): AvatarConfig => {
-  const config = Object.keys(AVATAR_STYLES).reduce(
-    (prev, next) =>
-      Object.assign(prev, {
-        [next]: Math.floor(
-          Math.random() * (AVATAR_STYLES[next as AvatarPart] + 1),
-        ),
-      }),
-    {} as Record<keyof AvatarConfig, number>,
-  )
-  // for harmony
+export const getRandomAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConfig => {
+  // Generate random values for all parts
+  const config = {} as AvatarConfig
+
+  for (const [part, maxValue] of Object.entries(AVATAR_STYLES)) {
+    config[part as keyof AvatarConfig] = defaults[part as keyof AvatarConfig] ?? Math.floor(Math.random() * (maxValue + 1))
+  }
+
+  // Reset specific parts to 0
   config.beard = 0
   config.details = 0
   config.accessories = 0
 
-  // for festival
-  // const festival = getCurrentFestival();
-  // if (festival) {
-  //   config[festival] = Math.floor(
-  //     Math.random() * (Number(AvatarStyleCountExtra[festival]) + 1),
-  //   );
-  // }
+  return config
+}
+
+export const getAvatarStyleFromQueryParams = (params: LocationQuery): Partial<AvatarConfig> => {
+  const config: Partial<AvatarConfig> = {}
+
+  // Check each query param
+  for (const [key, value] of Object.entries(params)) {
+    // Verify key exists in AVATAR_STYLES
+    if (!(key in AVATAR_STYLES) || !(typeof value === 'string')) {
+      continue
+    }
+
+    // Parse and validate number
+    const numValue = parseInt(value, 10)
+    if (isNaN(numValue)) {
+      continue
+    }
+
+    // Ensure value is within valid range (0 to max)
+    const maxValue = AVATAR_STYLES[key as keyof AvatarConfig]
+    if (numValue < 0 || numValue > maxValue) {
+      continue
+    }
+
+    // Add valid value to config
+    config[key as keyof AvatarConfig] = numValue
+  }
 
   return config
 }
