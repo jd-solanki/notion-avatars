@@ -1,3 +1,4 @@
+import type { QueryObject } from 'ufo'
 import type { LocationQuery } from 'vue-router'
 import type { AvatarConfig } from './types'
 
@@ -17,13 +18,13 @@ export const AVATAR_STYLES: AvatarConfig = {
   christmas: 0,
 }
 
-export const getRandomAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConfig => {
+export const getAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConfig => {
   // Generate random values for all parts
   const config = {} as AvatarConfig
 
-  for (const [part, maxValue] of Object.entries(AVATAR_STYLES)) {
+  Object.entries(AVATAR_STYLES).forEach(([part, maxValue]) => {
     config[part as keyof AvatarConfig] = defaults[part as keyof AvatarConfig] ?? Math.floor(Math.random() * (maxValue + 1))
-  }
+  })
 
   // Reset specific parts to 0
   config.beard = 0
@@ -33,8 +34,8 @@ export const getRandomAvatarStyle = (defaults: Partial<AvatarConfig> = {}): Avat
   return config
 }
 
-export const getAvatarStyleFromQueryParams = (params: LocationQuery): Partial<AvatarConfig> => {
-  const config: Partial<AvatarConfig> = {}
+export const getAvatarStyleFromQueryParams = (params: LocationQuery | QueryObject): AvatarConfig => {
+  const config = {} as AvatarConfig
 
   // Check each query param
   for (const [key, value] of Object.entries(params)) {
