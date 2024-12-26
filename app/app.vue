@@ -28,8 +28,17 @@ const config = ref<AvatarConfig>(getRandomAvatarStyle())
         </div>
         <AvatarEditor :config="config" />
       </ClientOnly>
-      <div>
-        <Button @click="config = getRandomAvatarStyle()">
+      <div class="my-8">
+        <Button
+          variant="outline"
+          class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold"
+          @click="config = getRandomAvatarStyle()"
+        >
+          <img
+            src="/icons/dice.svg"
+            alt="icon-dice"
+            class="size-6"
+          >
           Random
         </Button>
       </div>
