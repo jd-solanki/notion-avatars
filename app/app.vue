@@ -9,7 +9,7 @@ const config = ref<AvatarConfig>(getRandomAvatarStyle())
 <template>
   <div class="min-h-[100dvh] flex flex-col font-bold">
     <NuxtRouteAnnouncer />
-    <header class="container flex items-center">
+    <header class="container flex items-center py-4">
       <img
         src="/logo.gif"
         alt="notion-avatars"

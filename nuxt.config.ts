@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     {
       path: '~/components/ui',
       pathPrefix: false,
+      ignore: ['**/index.ts'],
     },
   ],
   imports: {
@@ -25,9 +26,9 @@ export default defineNuxtConfig({
     '~/assets/css/tailwind.css',
   ],
   colorMode: {
-    classSuffix: '',
+    // TODO: Force light mode till we make it compatible with dark mode
+    preference: 'light',
   },
-
   future: {
     compatibilityVersion: 4,
   },

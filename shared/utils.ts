@@ -59,10 +59,10 @@ export const getRandomAvatarStyle = (): AvatarConfig => {
   return config
 }
 
-type AvatarPart = Record<string, { [number: number]: string }>
+type AvatarParts = Record<string, { [number: number]: string }>
 
-export const getParts = (): AvatarPart => {
-  const parts: AvatarPart = {}
+export const getParts = (): AvatarParts => {
+  const parts: AvatarParts = {}
 
   console.log('notionAvatarParts :>> ', notionAvatarParts)
 

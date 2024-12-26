@@ -18,7 +18,7 @@ console.log('notionAvatarParts :>> ', notionAvatarParts)
       <div
         v-for="(partPreviews, part) in notionAvatarParts"
         :key="part"
-        class="border-[3px] rounded-lg border-primary rounded"
+        class="border-[3px] rounded-lg border-primary"
       >
         <DropdownMenu>
           <DropdownMenuTrigger class="flex p-4">
