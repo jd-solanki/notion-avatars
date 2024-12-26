@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { AvatarConfig } from '~~/shared/types'
-import { getParts } from '~~/shared/utils'
 
 const config = defineModel<AvatarConfig>('config', { required: true })
 
