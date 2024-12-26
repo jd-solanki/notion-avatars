@@ -5,8 +5,6 @@ import { getParts } from '~~/shared/utils'
 const config = defineModel<AvatarConfig>('config', { required: true })
 
 const notionAvatarParts = getParts()
-
-console.log('notionAvatarParts :>> ', notionAvatarParts)
 </script>
 
 <template>

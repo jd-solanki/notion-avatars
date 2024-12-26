@@ -20,20 +20,6 @@ export const AVATAR_STYLES: AvatarConfig = {
 }
 
 export const getRandomAvatarStyle = (): AvatarConfig => {
-  // // TODO: Generate random avatar style
-  // return {
-  //   accessories: 0,
-  //   beard: 0,
-  //   details: 0,
-  //   eyebrows: 0,
-  //   eyes: 0,
-  //   face: 0,
-  //   glasses: 0,
-  //   hair: 0,
-  //   mouth: 0,
-  //   nose: 0,
-  // }
-
   const config = Object.keys(AVATAR_STYLES).reduce(
     (prev, next) =>
       Object.assign(prev, {
@@ -64,8 +50,6 @@ type AvatarParts = Record<string, { [number: number]: string }>
 export const getParts = (): AvatarParts => {
   const parts: AvatarParts = {}
 
-  console.log('notionAvatarParts :>> ', notionAvatarParts)
-
   for (const path in notionAvatarParts) {
     const [part, numberWithExt] = path.split('/').at(-1)?.split('-') || []
     const number = numberWithExt?.split('.')[0]
@@ -73,8 +57,6 @@ export const getParts = (): AvatarParts => {
     if (!part || !number) {
       continue
     }
-
-    // parts[part][number] = notionAvatarParts[path].default
 
     if (!parts[part]) {
       parts[part] = {}
