@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "exodiusstudios.comment-anchors",
+        "dbaeumer.vscode-eslint",
+        "xabikos.javascriptsnippets",
+        "antfu.smart-clicks",
+        "bradlc.vscode-tailwindcss",
+        "austenc.tailwind-docs",
+        "meganrogge.template-string-converter",
+        "vue.volar",
+        "matijao.vue-nuxt-snippets",
+        "yoavbls.pretty-ts-errors"
+    ]
+}
