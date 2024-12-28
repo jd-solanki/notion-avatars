@@ -23,6 +23,8 @@ const copyCurrentStyleURL = () => {
   navigator.clipboard.writeText(url.href)
 }
 
+// Embed Code
+const embedCode = useCookie<'img' | 'url' | 'md'>('embedCode', { default: () => 'img' })
 const embedUrl = computed(() => {
   const url = new URL(window.location.href + 'api/avatar/')
 
@@ -32,9 +34,26 @@ const embedUrl = computed(() => {
 
   return url.href
 })
+const copyEmbedCode = () => {
+  let text = ''
+  switch (embedCode.value) {
+    case 'img':
+      text = `<img src="${embedUrl.value}" alt="Notion Avatar" />`
+      break
+    case 'md':
+      text = `![notion avatar](${embedUrl.value})`
+      break
+    case 'url':
+      text = embedUrl.value
+      break
+  }
 
+  // Copy to clipboard
+  navigator.clipboard.writeText(text)
+}
+
+// Download
 const downloadFormat = useCookie<'svg' | 'png' | 'jpg'>('downloadFormat', { default: () => 'svg' })
-
 const downloadAvatar = async () => {
   const svgElement = avatarPreviewRef.value?.querySelector('svg')
   if (!svgElement) return
@@ -145,36 +164,41 @@ const downloadAvatar = async () => {
           >
           Copy Current Style URL
         </Button>
-        <Popover>
-          <PopoverTrigger class="flex gap-2 h-9 items-center border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold">
+        <div class="flex items-center">
+          <Button
+            variant="outline"
+            class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold rounded-r-none"
+            @click="copyEmbedCode"
+          >
             <img
               src="/icons/embed.svg"
               alt="icon-embed"
               class="size-6"
             >
-            Embed
-          </PopoverTrigger>
-          <PopoverContent class="border-[3px] min-w-96 border-primary rounded-lg p-4 font-bold">
-            <p class="text-xl">
-              URL
-            </p>
-            <p class="whitespace-nowrap mb-4 select-all overflow-x-scroll p-2 bg-gray-100 rounded-xl">
-              {{ embedUrl }}
-            </p>
-            <p class="text-xl mt-4">
-              &lt;img&gt;
-            </p>
-            <p class="whitespace-nowrap mb-4 select-all overflow-x-scroll p-2 bg-gray-100 rounded-xl">
-              &lt;img src=&quot;{{ embedUrl }}&quot; alt=&quot;Notion Avatar&quot; /&gt;
-            </p>
-            <p class="text-xl mt-4">
-              Markdown
-            </p>
-            <p class="whitespace-nowrap mb-4 select-all overflow-x-scroll p-2 bg-gray-100 rounded-xl">
-              ![notion avatar]({{ embedUrl }})
-            </p>
-          </PopoverContent>
-        </Popover>
+            Copy Embed Code
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger class="border-[3px] border-l-0 border-primary ps-4 pe-6 py-3 text-base font-bold rounded-full rounded-l-none flex items-center uppercase">
+              <span>{{ embedCode }}</span>
+              <img
+                src="https://api.iconify.design/lucide:chevron-down.svg"
+                alt="iconify-chevron-down"
+                class="size-5 ms-1 mt-1"
+              >
+            </DropdownMenuTrigger>
+            <DropdownMenuContent class="border-[3px] border-primary rounded-lg font-bold">
+              <DropdownMenuItem @click="embedCode = 'img'">
+                &lt;img&gt;
+              </DropdownMenuItem>
+              <DropdownMenuItem @click="embedCode = 'md'">
+                Markdown
+              </DropdownMenuItem>
+              <DropdownMenuItem @click="embedCode = 'url'">
+                URL
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <div class="flex items-center">
           <Button
             variant="outline"
