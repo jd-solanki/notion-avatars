@@ -1,5 +1,5 @@
 <template>
-  <footer class="flex flex-col items-center pb-4">
+  <footer class="flex flex-col items-center text-center pb-4">
     <img
       src="/line.svg"
       width="125"
@@ -22,7 +22,7 @@
         𝕏
       </NuxtLink>
     </div>
-    <div class="text-gray-300 mt-3 px-6 text-center">
+    <div class="text-gray-300 text-balance mt-3 px-6 text-center">
       <NuxtLink
         href="https://abstractlab.gumroad.com/l/noto-avatar"
         class="hover:underline"
@@ -44,7 +44,7 @@
       >CC0</NuxtLink>
       license
     </div>
-    <p class="text-gray-300">
+    <p class="text-gray-300 text-balance">
       Adapted from <NuxtLink
         href="https://github.com/Mayandev/notion-avatar/"
         target="_blank"

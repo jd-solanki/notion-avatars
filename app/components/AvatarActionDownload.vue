@@ -60,10 +60,10 @@ const downloadAvatar = async () => {
 </script>
 
 <template>
-  <div class="flex items-center">
+  <div class="inline-flex items-center">
     <Button
       variant="outline"
-      class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold rounded-r-none"
+      class="border-[3px] flex-grow border-primary rounded-full py-6 text-base font-bold rounded-r-none"
       @click="downloadAvatar"
     >
       <img
@@ -74,7 +74,7 @@ const downloadAvatar = async () => {
       Download
     </Button>
     <DropdownMenu>
-      <DropdownMenuTrigger class="border-[3px] border-l-0 border-primary ps-4 pe-6 py-3 text-base font-bold rounded-full rounded-l-none flex items-center uppercase">
+      <DropdownMenuTrigger class="border-[3px] border-l-0 border-primary ps-4 md:pe-6 pe-4 py-3 text-base font-bold rounded-full rounded-l-none flex items-center uppercase">
         <span>{{ downloadFormat }}</span>
         <img
           src="https://api.iconify.design/lucide:chevron-down.svg"

@@ -35,14 +35,14 @@ router.replace({ query: {} })
       <!-- TODO: It looks like adding ref="avatarPreview" directly to AvatarPreview doesn't resolve somehow so after above resolve this as well -->
       <div
         ref="avatar-preview"
-        class="w-48 h-48 md:w-72 md:h-72 mx-auto"
+        class="w-48 h-48 md:w-72 md:h-72 mx-auto mb-4"
       >
         <ClientOnly>
           <AvatarPreview :config />
         </ClientOnly>
       </div>
       <AvatarEditor v-model:config="config" />
-      <div class="my-8 flex items-center gap-8 justify-between">
+      <div class="my-8 lg:flex xl:gap-12 gap-6 grid sm:grid-cols-2 [&>*]:flex-grow">
         <AvatarActionRandom v-model:config="config" />
         <AvatarActionCopyCurrentStyleURL :config />
         <AvatarActionCopyEmbedCode :config />
