@@ -214,7 +214,7 @@ const downloadAvatar = async () => {
             @click="downloadAvatar"
           >
             <img
-              src="/icons/LucideGlobe.svg"
+              src="/icons/download.svg"
               alt="icon-dice"
               class="size-6"
             >
