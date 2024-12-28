@@ -11,11 +11,11 @@ const avatarParts = getParts()
     <p class="text-lg">
       Choose your style
     </p>
-    <div class="flex justify-between my-4">
+    <div class="grid lg:grid-cols-12 sm:grid-cols-6 grid-cols-4 xl:gap-10 gap-4 my-4">
       <div
         v-for="(partPreviews, part) in avatarParts"
         :key="part"
-        class="border-[3px] rounded-lg border-primary"
+        class="border-[3px] flex justify-center rounded-lg border-primary"
       >
         <Popover>
           <PopoverTrigger class="flex p-4">
