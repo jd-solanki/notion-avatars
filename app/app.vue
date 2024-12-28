@@ -6,6 +6,8 @@ import { getAvatarStyle, getAvatarStyleFromQueryParams as parseAvatarStyleQueryP
 const route = useRoute()
 const router = useRouter()
 
+const avatarPreviewRef = ref<SVGElement>()
+
 const appliedAvatarStyle = parseAvatarStyleQueryParams(route.query)
 const config = useState<AvatarConfig>('avatar-config', () => getAvatarStyle(appliedAvatarStyle))
 
@@ -30,6 +32,65 @@ const embedUrl = computed(() => {
 
   return url.href
 })
+
+const downloadFormat = useCookie<'svg' | 'png' | 'jpg'>('downloadFormat', { default: () => 'svg' })
+
+const downloadAvatar = async () => {
+  const svgElement = avatarPreviewRef.value?.querySelector('svg')
+  if (!svgElement) return
+
+  if (downloadFormat.value === 'svg') {
+    const svgContent = svgElement.outerHTML
+    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' })
+    const url = URL.createObjectURL(svgBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `notion-avatar.${downloadFormat.value}`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+    return
+  }
+
+  // For PNG/JPG conversion
+  const img = new Image()
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+
+  canvas.width = 1080
+  canvas.height = 1080
+
+  return new Promise((resolve) => {
+    img.onload = () => {
+      if (!ctx) return
+      // Only set background for JPG
+      if (downloadFormat.value === 'jpg') {
+        ctx.fillStyle = '#FFFEFC' // White background for JPG
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+      canvas.toBlob((blob) => {
+        if (!blob) return
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = `notion-avatar.${downloadFormat.value}`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+        resolve(true)
+      }, `image/${downloadFormat.value}`, 1.0)
+    }
+
+    // Convert SVG to base64 data URL
+    const svgContent = svgElement.outerHTML
+    const svgBase64 = btoa(svgContent)
+    img.src = `data:image/svg+xml;base64,${svgBase64}`
+  })
+}
 </script>
 
 <template>
@@ -49,7 +110,11 @@ const embedUrl = computed(() => {
     <!-- NOTE: 80px is header height -->
     <div class="container my-auto min-h-[calc(100dvh-80px)]">
       <!-- TODO: Remove this `ClientOnly` and use `svgString` from `useAvatarPreview` -->
-      <div class="w-48 h-48 md:w-72 md:h-72 mx-auto">
+      <!-- TODO: It looks like adding ref="avatarPreview" directly to AvatarPreview doesn't resolve somehow so after above resolve this as well -->
+      <div
+        ref="avatarPreviewRef"
+        class="w-48 h-48 md:w-72 md:h-72 mx-auto"
+      >
         <ClientOnly>
           <AvatarPreview :config="config" />
         </ClientOnly>
@@ -67,6 +132,18 @@ const embedUrl = computed(() => {
             class="size-6"
           >
           Random
+        </Button>
+        <Button
+          variant="outline"
+          class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold"
+          @click="copyCurrentStyleURL"
+        >
+          <img
+            src="/icons/LucideGlobe.svg"
+            alt="icon-dice"
+            class="size-6"
+          >
+          Copy Current Style URL
         </Button>
         <Popover>
           <PopoverTrigger class="flex gap-2 h-9 items-center border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold">
@@ -98,18 +175,41 @@ const embedUrl = computed(() => {
             </p>
           </PopoverContent>
         </Popover>
-        <Button
-          variant="outline"
-          class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold"
-          @click="copyCurrentStyleURL"
-        >
-          <img
-            src="/icons/LucideGlobe.svg"
-            alt="icon-dice"
-            class="size-6"
+        <div class="flex items-center">
+          <Button
+            variant="outline"
+            class="border-[3px] border-primary rounded-full px-16 py-6 text-base font-bold rounded-r-none"
+            @click="downloadAvatar"
           >
-          Copy Current Style URL
-        </Button>
+            <img
+              src="/icons/LucideGlobe.svg"
+              alt="icon-dice"
+              class="size-6"
+            >
+            Download
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger class="border-[3px] border-l-0 border-primary ps-4 pe-6 py-3 text-base font-bold rounded-full rounded-l-none flex items-center uppercase">
+              <span>{{ downloadFormat }}</span>
+              <img
+                src="https://api.iconify.design/lucide:chevron-down.svg"
+                alt="iconify-chevron-down"
+                class="size-5 ms-1 mt-1"
+              >
+            </DropdownMenuTrigger>
+            <DropdownMenuContent class="border-[3px] border-primary rounded-lg font-bold">
+              <DropdownMenuItem @click="downloadFormat = 'svg'">
+                SVG
+              </DropdownMenuItem>
+              <DropdownMenuItem @click="downloadFormat = 'png'">
+                PNG
+              </DropdownMenuItem>
+              <DropdownMenuItem @click="downloadFormat = 'jpg'">
+                JPG
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <Footer />
     </div>
