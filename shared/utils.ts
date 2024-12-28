@@ -34,7 +34,7 @@ export const getAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConf
   return config
 }
 
-export const getAvatarStyleFromQueryParams = (params: LocationQuery | QueryObject): AvatarConfig => {
+export const parseAvatarStyleQueryParams = (params: LocationQuery | QueryObject): AvatarConfig => {
   const config = {} as AvatarConfig
 
   // Check each query param
