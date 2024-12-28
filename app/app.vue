@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 // TODO: All `~~/shared` imports should be auto imported
+import { useToast } from '@/components/ui/toast'
 import type { AvatarConfig } from '~~/shared/types'
 import { getAvatarStyle, getAvatarStyleFromQueryParams as parseAvatarStyleQueryParams } from '~~/shared/utils'
 
 const route = useRoute()
 const router = useRouter()
+const { toast } = useToast()
 
 const avatarPreviewRef = ref<SVGElement>()
 
@@ -21,6 +23,9 @@ const copyCurrentStyleURL = () => {
   })
 
   navigator.clipboard.writeText(url.href)
+  toast({
+    title: '✅ Copied to clipboard',
+  })
 }
 
 // Embed Code
@@ -50,6 +55,9 @@ const copyEmbedCode = () => {
 
   // Copy to clipboard
   navigator.clipboard.writeText(text)
+  toast({
+    title: '✅ Copied to clipboard',
+  })
 }
 
 // Download
@@ -237,6 +245,7 @@ const downloadAvatar = async () => {
       </div>
       <Footer />
     </div>
+    <Toaster />
   </div>
 </template>
 
