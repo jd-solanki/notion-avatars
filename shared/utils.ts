@@ -23,7 +23,7 @@ export const getAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConf
   const config = {} as AvatarConfig
 
   Object.entries(AVATAR_STYLES).forEach(([part, maxValue]) => {
-    config[part as keyof AvatarConfig] = defaults[part as keyof AvatarConfig] ?? Math.floor(Math.random() * (maxValue + 1))
+    config[part as keyof AvatarConfig] = Math.floor(Math.random() * (maxValue + 1))
   })
 
   // Reset specific parts to 0
@@ -31,10 +31,13 @@ export const getAvatarStyle = (defaults: Partial<AvatarConfig> = {}): AvatarConf
   config.details = 0
   config.accessories = 0
 
+  // Apply defaults
+  Object.assign(config, defaults)
+
   return config
 }
 
-export const getAvatarStyleFromQueryParams = (params: LocationQuery | QueryObject): AvatarConfig => {
+export const parseAvatarStyleQueryParams = (params: LocationQuery | QueryObject): AvatarConfig => {
   const config = {} as AvatarConfig
 
   // Check each query param

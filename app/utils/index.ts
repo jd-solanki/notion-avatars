@@ -19,7 +19,10 @@ export const getParts = (): AvatarParts => {
       parts[part] = {}
     }
 
-    parts[part][parseInt(number)] = notionAvatarParts[path]?.default
+    const svgContent = notionAvatarParts[path]?.default
+    if (svgContent) {
+      parts[part][parseInt(number)] = svgContent
+    }
   }
 
   return parts

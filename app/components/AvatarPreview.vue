@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { AvatarConfig } from '~~/shared/types'
 
-const config = defineModel<AvatarConfig>('config', { required: true })
+const props = defineProps<{ config: AvatarConfig }>()
 
 // TODO: Instead of returning the DOM string, let <template> handle the rendering
 const avatarPreview = computed(() => {
-  const groups = Object.entries(config.value).map(([type, value]) => {
+  const groups = Object.entries(props.config).map(([type, value]) => {
     const rawContent = new URL(`/assets/svg/avatar/preview/${type}/${value}.svg?raw`, import.meta.url).href
     const svgContent = decodeURIComponent(rawContent)
 
