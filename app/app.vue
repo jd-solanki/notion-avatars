@@ -3,6 +3,11 @@
 import type { AvatarConfig } from '~~/shared/types'
 import { getAvatarStyle, getAvatarStyleFromQueryParams as parseAvatarStyleQueryParams } from '~~/shared/utils'
 
+defineOgImageComponent('NuxtSeo', {
+  title: 'Notion Avatars',
+  description: 'Create, Use and Download Notion Style Avatars',
+  theme: '#000',
+})
 const route = useRoute()
 const router = useRouter()
 

@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
+    '@nuxtjs/seo',
   ],
   components: [
     '~/components',
@@ -25,7 +26,12 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/tailwind.css',
   ],
-  colorMode: {
+  site: {
+    url: 'https://notion-avatars.netlify.app/',
+    name: 'Notion Avatars',
+    description: 'Create, Use and Download Notion Style Avatars',
+    defaultLocale: 'en',
+  }, colorMode: {
     // TODO: Force light mode till we make it compatible with dark mode
     preference: 'light',
   },
