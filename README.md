@@ -4,7 +4,9 @@
 
 Create, Use and Download Notion Style Avatars ✨
 
-I wanted to use existing Notion Avatar but it's broken. So I decided to make own version of it using Nuxt.js just for fun 😇
+I wanted to use existing Notion Avatar but it's broken ):
+
+So I decided to make own version of it using Nuxt.js just for fun 😇
 
 ## Styles
 
