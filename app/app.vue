@@ -47,13 +47,14 @@ router.replace({ query: {} })
         </ClientOnly>
       </div>
       <AvatarEditor v-model:config="config" />
-      <div class="my-8 lg:flex xl:gap-12 gap-6 grid sm:grid-cols-2 [&>*]:flex-grow">
+      <div class="mt-8 mb-4 lg:flex xl:gap-12 gap-6 grid sm:grid-cols-2 [&>*]:flex-grow">
         <AvatarActionRandom v-model:config="config" />
         <AvatarActionCopyCurrentStyleURL :config />
         <AvatarActionCopyEmbedCode :config />
         <AvatarActionDownload :avatar-preview-ref="avatarPreviewRef" />
       </div>
-      <Footer />
+      <p>TIP: You can choose any preset and copy "URL" as embed code to directly hotlink avatar in your application without downloading it.</p>
+      <Footer class="mt-8" />
     </div>
     <Toaster />
   </div>
