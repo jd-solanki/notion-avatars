@@ -258,7 +258,7 @@ export const findMatchingPreset = (config: AvatarConfig): string | null => {
   return null
 }
 
-export const getCurrentConfigParams = (config: AvatarConfig) => {
+export const getSearchParamsByConfig = (config: AvatarConfig) => {
   const url = new URL(window.location.href)
 
   // Check if current config matches a preset

@@ -16,15 +16,6 @@ const avatarPreviewRef = useTemplateRef<HTMLDivElement>('avatar-preview')
 const appliedAvatarStyle = parseAvatarStyleQueryParams(route.query)
 const config = useState<AvatarConfig>('avatar-config', () => getAvatarStyle(appliedAvatarStyle))
 
-// Watch for route query changes and update config
-watch(
-  () => route.query,
-  (query) => {
-    const newStyle = parseAvatarStyleQueryParams(query)
-    Object.assign(config.value, newStyle)
-  },
-)
-
 // Remove query params to avoid ugly URL
 router.replace({ query: {} })
 </script>

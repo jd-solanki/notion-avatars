@@ -15,7 +15,7 @@ const avatarParts = getParts()
         Choose your style
       </p>
       <div class="flex-grow" />
-      <Popover default-open>
+      <Popover>
         <PopoverTrigger>
           <TooltipProvider :delay-duration="0">
             <Tooltip>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useToast } from '@/components/ui/toast'
 import type { AvatarConfig } from '~~/shared/types'
-import { getCurrentConfigParams } from '~~/shared/utils'
+import { getSearchParamsByConfig } from '~~/shared/utils'
 
 const { toast } = useToast()
 
@@ -11,7 +11,7 @@ const embedCode = useCookie<'img' | 'url' | 'md'>('embedCode', { default: () => 
 const embedUrl = computed(() => {
   const url = new URL(window.location.href + 'api/avatar/')
 
-  const searchParams = getCurrentConfigParams(props.config)
+  const searchParams = getSearchParamsByConfig(props.config)
 
   // Assign query params to URL
   searchParams.forEach((value, key) => {
