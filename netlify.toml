@@ -1,0 +1,5 @@
+[[headers]]
+  for = "/api/avatar"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Netlify-Vary = "query"
