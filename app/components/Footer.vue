@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+const partners = [
+  {
+    name: 'NuxtStart',
+    url: 'https://nuxtstart.com',
+  },
+]
+</script>
+
+
 <template>
   <footer class="flex flex-col items-center text-center pb-4">
     <img
@@ -59,6 +69,16 @@
         class="hover:underline"
         target="_blank"
       >Nuxt.js</NuxtLink>.
+    </p>
+    <p>
+      <span class="me-1 text-gray-300">Partners:</span>
+      <NuxtLink
+        v-for="partner in partners"
+        :key="partner.name"
+        :href="partner.url"
+        class="hover:underline"
+        target="_blank"
+      >{{ partner.name }}</NuxtLink>
     </p>
   </footer>
 </template>
