@@ -11,6 +11,8 @@ export default defineCachedEventHandler((event) => {
 
   // Set the content type for SVG
   setHeader(event, 'Content-Type', 'image/svg+xml')
+  setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
+  setHeader(event, 'Netlify-CDN-Cache-Control', 'public, max-age=31536000, immutable, durable')
 
   return svgString.value
 }, {
